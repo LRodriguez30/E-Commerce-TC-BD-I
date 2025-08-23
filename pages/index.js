@@ -36,6 +36,7 @@ export default function Home() {
       newDiv.style.borderBottom = "1px solid #ccc";
       newDiv.style.padding = "0.5rem 0";
       newDiv.textContent = `${method} => ${JSON.stringify(result)}`;
+      container.innerHTML = "";
       container.appendChild(newDiv);
 
     } catch (err) {
