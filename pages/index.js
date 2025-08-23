@@ -4,6 +4,13 @@ export default function Home() {
       let body = null;
 
       if (method === "POST") {
+        const _name = prompt("Nombre de usuario.");
+        if (!_name) return;
+
+        const _correo = prompt("Correo del usuario.");
+        if (!_correo) return;
+
+        const id = prompt("ID del usuario a actualizar");
         body = JSON.stringify({ name: "Nuevo Usuario", email: "user@mail.com" });
       } else if (method === "PUT") {
         const id = prompt("ID del usuario a actualizar");
