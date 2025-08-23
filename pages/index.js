@@ -1,4 +1,11 @@
 export default function Home() {
+  let keepLog = false; // false: limpiar automáticamente, true: mantener logs
+
+  const toggleLog = () => {
+    keepLog = !keepLog;
+    const btn = document.getElementById("toggle-log");
+    btn.textContent = keepLog ? "Limpiar automáticamente" : "Mantener logs";
+  };
 
   const handleFetch = async (method) => {
     try {
@@ -30,17 +37,19 @@ export default function Home() {
 
       const result = await res.json();
 
-      // Aquí agregamos el resultado al contenedor usando DOM puro
       const container = document.getElementById("api-output");
+      if (!keepLog) container.innerHTML = "";
+
       const newDiv = document.createElement("div");
       newDiv.style.borderBottom = "1px solid #ccc";
       newDiv.style.padding = "0.5rem 0";
       newDiv.textContent = `${method} => ${JSON.stringify(result)}`;
-      container.innerHTML = "";
       container.appendChild(newDiv);
 
     } catch (err) {
       const container = document.getElementById("api-output");
+      if (!keepLog) container.innerHTML = "";
+
       const newDiv = document.createElement("div");
       newDiv.style.color = "red";
       newDiv.style.padding = "0.5rem 0";
@@ -60,6 +69,7 @@ export default function Home() {
         <button onClick={() => handleFetch("POST")}>POST /api/users</button>
         <button onClick={() => handleFetch("PUT")}>PUT /api/users</button>
         <button onClick={() => handleFetch("DELETE")}>DELETE /api/users</button>
+        <button id="toggle-log" onClick={toggleLog}>Mantener logs</button>
       </div>
 
       <h2>Resultado:</h2>
