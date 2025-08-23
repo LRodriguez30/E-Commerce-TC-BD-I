@@ -3,8 +3,8 @@ import clientPromise from "../../lib/mongodb";
 
 export default async function handler(req, res) {
   const client = await clientPromise;
-  const db = client.db("mi_base");       // nombre de tu base de datos
-  const users = db.collection("users");  // colección
+  const db = client.db("Testing");       // nombre de tu base de datos
+  const users = db.collection("Dev");  // colección
 
   switch (req.method) {
     case "GET":
