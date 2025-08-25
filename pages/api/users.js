@@ -7,12 +7,20 @@ export default async function handler(req, res) {
     const token = req.headers["x-api-key"];
     const SECRET_KEY = process.env.API_KEY;
 
-    if (token !== SECRET_KEY) {
-      console.log("Error");
-      return res.status(401).json({ error: "No autorizado" });
+    // ⚠️ Validación estricta
+    if (!SECRET_KEY) {
+      console.error("❌ API_KEY no definida en variables de entorno");
+      return res.status(500).json({ error: "Error de configuración: API_KEY no definida" });
     }
-    else {
-      console.log("OK");
+
+    if (!token) {
+      console.warn("⚠️ Solicitud sin x-api-key");
+      return res.status(401).json({ error: "No autorizado: falta x-api-key" });
+    }
+
+    if (token !== SECRET_KEY) {
+      console.warn(`⚠️ Token inválido: ${token}`);
+      return res.status(401).json({ error: "No autorizado: token inválido" });
     }
 
     const client = await clientPromise;
