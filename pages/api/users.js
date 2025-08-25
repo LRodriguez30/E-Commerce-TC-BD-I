@@ -8,7 +8,11 @@ export default async function handler(req, res) {
     const SECRET_KEY = process.env.API_KEY;
 
     if (token !== SECRET_KEY) {
+      console.log("Error");
       return res.status(401).json({ error: "No autorizado" });
+    }
+    else {
+      console.log("OK");
     }
 
     const client = await clientPromise;
