@@ -1,6 +1,9 @@
+import { postDB, putDB, deleteDB } from "../scripts/post";
+
 export default function Home() {
   let keepLog = false; // false: limpiar automáticamente, true: mantener logs
 
+  // LOG CONFIG - CLEAR - HOLD
   const toggleLog = () => {
     keepLog = !keepLog;
     const btn = document.getElementById("toggle-log");
@@ -9,45 +12,45 @@ export default function Home() {
 
   const handleFetch = async (method) => {
     try {
+      // FETCH
       let body = null;
-
+      let req = null;
+      
+      // SECURITY
       const API_KEY = prompt("API KEY:")
 
       if (!API_KEY) {
         return;
       }
 
+      // METHODS
       if (method === "POST") {
-        const name = prompt("Nombre de usuario:");
-        if (!name) return;
-        const email = prompt("Correo del usuario:");
-        if (!email) return;
-        body = JSON.stringify({ name, email });
+        req = postDB();
+        if (!req) return;
+
       } else if (method === "PUT") {
-        const id = prompt("ID del usuario a actualizar:");
-        if (!id) return;
-        const newName = prompt("Nuevo nombre del usuario:");
-        if (!newName) return;
-        body = JSON.stringify({ _id: id, name: newName });
+        req = putDB();
+        if (!req) return;
+        
       } else if (method === "DELETE") {
-        const id = prompt("ID del usuario a eliminar:");
-        if (!id) return;
-        body = JSON.stringify({ _id: id });
+        req = deleteDB();
+        if (!req) return;
       }
 
-      const res = await fetch("/api/users", {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY },
-        body
-      });
+      body = req;
 
+
+      // RESPONSE OBJECT OBTAINED FROM MONGODB
+      const res = fetchDB(API_KEY);
+
+      // DATA PARSED FROM THE OBJECT
       const result = await res.json();
 
+      // HANDLE CONFIG OF PANEL
       const container = document.getElementById("api-output");
       if (!keepLog) container.innerHTML = "";
 
+      // CREATING LOG
       const newDiv = document.createElement("div");
       newDiv.style.borderBottom = "1px solid #ccc";
       newDiv.style.padding = "0.5rem 0";
@@ -55,9 +58,11 @@ export default function Home() {
       container.appendChild(newDiv);
 
     } catch (err) {
+      // VERIFY CONFIG IN SPITE OF ERRORS
       const container = document.getElementById("api-output");
       if (!keepLog) container.innerHTML = "";
 
+      // CREATING ERROR LOG
       const newDiv = document.createElement("div");
       newDiv.style.color = "red";
       newDiv.style.padding = "0.5rem 0";
@@ -66,17 +71,18 @@ export default function Home() {
     }
   };
 
+  // HOMEPAGE
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Hola Next.js 🚀</h1>
-      <p>Este es mi primer proyecto con Next.</p>
+      <h1>E-Commerce API 🚀</h1>
+      <hr>/api/users</hr>
 
-      <h2>Acciones de la API</h2>
+      <h2>Rutas:</h2>
       <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem", flexWrap: "wrap" }}>
-        <button onClick={() => handleFetch("GET")}>GET /api/users</button>
-        <button onClick={() => handleFetch("POST")}>POST /api/users</button>
-        <button onClick={() => handleFetch("PUT")}>PUT /api/users</button>
-        <button onClick={() => handleFetch("DELETE")}>DELETE /api/users</button>
+        <button onClick={() => handleFetch("GET")}>GET</button>
+        <button onClick={() => handleFetch("POST")}>POST</button>
+        <button onClick={() => handleFetch("PUT")}>PUT</button>
+        <button onClick={() => handleFetch("DELETE")}>DELETE</button>
         <button id="toggle-log" onClick={toggleLog}>Mantener logs</button>
       </div>
 
@@ -91,7 +97,7 @@ export default function Home() {
           overflowY: "auto"
         }}
       >
-        {/* Aquí se irán agregando los resultados */}
+        {/* RESULT BODY */}
       </div>
     </div>
   );
