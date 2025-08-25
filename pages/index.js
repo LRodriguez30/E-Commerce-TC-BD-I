@@ -11,6 +11,8 @@ export default function Home() {
     try {
       let body = null;
 
+      const API_KEY = prompt("API KEY:")
+      
       if (method === "POST") {
         const name = prompt("Nombre de usuario:");
         if (!name) return;
@@ -33,7 +35,7 @@ export default function Home() {
         method,
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": "tZMlXHmGNu7YwExMvtkFzSS9dnutdxVfPlbVVrcUjP5wclVzNZ36Dyx5oAO27uwVmkpVSPrALBPyVLsCnZ1ZzCmHNNlIIWMT7dTpkXenGetfMDQqufHS63rVU4IFyiOJ" },
+          "x-api-key": API_KEY },
         body
       });
 
