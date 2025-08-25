@@ -1,4 +1,4 @@
-import { postDB, putDB, deleteDB } from "../scripts";
+import { postDB, putDB, deleteDB } from "./scripts";
 
 export default function Home() {
   let keepLog = false; // false: limpiar automáticamente, true: mantener logs
