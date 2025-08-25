@@ -4,6 +4,13 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   try {
+    const token = req.headers["x-api-key"];
+    const SECRET_KEY = process.env.API_KEY;
+
+    if (token !== SECRET_KEY) {
+      return res.status(401).json({ error: "No autorizado" });
+    }
+
     const client = await clientPromise;
     const db = client.db("Testing");        // tu base
     const users = db.collection("Dev");     // tu colección
