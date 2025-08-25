@@ -31,7 +31,9 @@ export default function Home() {
 
       const res = await fetch("/api/users", {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "tZMlXHmGNu7YwExMvtkFzSS9dnutdxVfPlbVVrcUjP5wclVzNZ36Dyx5oAO27uwVmkpVSPrALBPyVLsCnZ1ZzCmHNNlIIWMT7dTpkXenGetfMDQqufHS63rVU4IFyiOJ" },
         body
       });
 
