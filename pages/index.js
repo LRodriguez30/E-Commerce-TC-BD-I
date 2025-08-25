@@ -12,7 +12,11 @@ export default function Home() {
       let body = null;
 
       const API_KEY = prompt("API KEY:")
-      
+
+      if (!API_KEY) {
+        return;
+      }
+
       if (method === "POST") {
         const name = prompt("Nombre de usuario:");
         if (!name) return;
