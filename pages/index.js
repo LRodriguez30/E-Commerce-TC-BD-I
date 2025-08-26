@@ -1,15 +1,7 @@
-import { postDB, putDB, deleteDB } from "./scripts";
+import * as API from "../scripts/methods.js";
+import * as CONFIG from "../scripts/config.js";
 
-export default function Home() {
-  let keepLog = false; // false: limpiar automáticamente, true: mantener logs
-
-  // LOG CONFIG - CLEAR - HOLD
-  const toggleLog = () => {
-    keepLog = !keepLog;
-    const btn = document.getElementById("toggle-log");
-    btn.textContent = keepLog ? "Limpiar automáticamente" : "Mantener logs";
-  };
-
+export default function index() {
   const handleFetch = async (method) => {
     try {
       // FETCH
@@ -25,15 +17,15 @@ export default function Home() {
 
       // METHODS
       if (method === "POST") {
-        req = postDB();
+        req = API.postDB();
         if (!req) return;
 
       } else if (method === "PUT") {
-        req = putDB();
+        req = API.putDB();
         if (!req) return;
         
       } else if (method === "DELETE") {
-        req = deleteDB();
+        req = API.deleteDB();
         if (!req) return;
       }
 
@@ -41,7 +33,7 @@ export default function Home() {
 
 
       // RESPONSE OBJECT OBTAINED FROM MONGODB
-      const res = fetchDB(API_KEY);
+      const res = fetchDB(method, API_KEY, body);
 
       // DATA PARSED FROM THE OBJECT
       const result = await res.json();
@@ -83,7 +75,7 @@ export default function Home() {
         <button onClick={() => handleFetch("POST")}>POST</button>
         <button onClick={() => handleFetch("PUT")}>PUT</button>
         <button onClick={() => handleFetch("DELETE")}>DELETE</button>
-        <button id="toggle-log" onClick={toggleLog}>Mantener logs</button>
+        <button id="toggle-log" onClick={CONFIG.toggleLog}>Mantener logs</button>
       </div>
 
       <h2>Resultado:</h2>

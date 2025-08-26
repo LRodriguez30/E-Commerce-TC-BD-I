@@ -1,4 +1,4 @@
-async function fetchDB(API_KEY) {
+async function fetchDB(method, API_KEY, body) {
     return await fetch("/api/users", {
         method,
         headers: {
