@@ -1,5 +1,6 @@
 import * as API from "../scripts/methods.js";
 import * as CONFIG from "../scripts/config.js";
+import * as HANDLER from "../scripts/fetch.js";
 
 export default function index() {
   let keepLog = false; // BY DEFAULT CLEAR LOGS
@@ -41,7 +42,7 @@ export default function index() {
 
 
       // RESPONSE OBJECT OBTAINED FROM MONGODB
-      const res = fetchDB(method, API_KEY, body);
+      const res = HANDLER.fetchDB(method, API_KEY, body);
 
       // DATA PARSED FROM THE OBJECT
       const result = await res.json();
