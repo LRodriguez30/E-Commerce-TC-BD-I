@@ -67,9 +67,9 @@ export default function index() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>E-Commerce API 🚀</h1>
-      <hr>/api/users</hr>
+      <hr />
 
-      <h2>Rutas:</h2>
+      <h2>Rutas api/users:</h2>
       <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem", flexWrap: "wrap" }}>
         <button onClick={() => handleFetch("GET")}>GET</button>
         <button onClick={() => handleFetch("POST")}>POST</button>
