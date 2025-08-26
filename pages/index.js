@@ -2,6 +2,12 @@ import * as API from "../scripts/methods.js";
 import * as CONFIG from "../scripts/config.js";
 
 export default function index() {
+  let keepLog = false; // BY DEFAULT CLEAR LOGS
+
+  const keeptoggleLog = () => {
+    keepLog = !keepLog;
+  }
+
   const handleFetch = async (method) => {
     try {
       // FETCH
@@ -75,7 +81,7 @@ export default function index() {
         <button onClick={() => handleFetch("POST")}>POST</button>
         <button onClick={() => handleFetch("PUT")}>PUT</button>
         <button onClick={() => handleFetch("DELETE")}>DELETE</button>
-        <button id="toggle-log" onClick={CONFIG.toggleLog}>Mantener logs</button>
+        <button id="toggle-log" onClick={CONFIG.toggleLog(keeptoggleLog)}>Mantener logs</button>
       </div>
 
       <h2>Resultado:</h2>
