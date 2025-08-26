@@ -6,6 +6,8 @@ export default function index() {
 
   const keeptoggleLog = () => {
     keepLog = !keepLog;
+    const btn = document.getElementById("toggle-log");
+    CONFIG.toggleLog(btn);
   }
 
   const handleFetch = async (method) => {
@@ -81,7 +83,7 @@ export default function index() {
         <button onClick={() => handleFetch("POST")}>POST</button>
         <button onClick={() => handleFetch("PUT")}>PUT</button>
         <button onClick={() => handleFetch("DELETE")}>DELETE</button>
-        <button id="toggle-log" onClick={CONFIG.toggleLog(keeptoggleLog)}>Mantener logs</button>
+        <button id="toggle-log" onClick={keeptoggleLog}>Mantener logs</button>
       </div>
 
       <h2>Resultado:</h2>
