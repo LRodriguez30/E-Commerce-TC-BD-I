@@ -4,7 +4,7 @@ async function fetchDB(method, API_KEY, body) {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": API_KEY },
-        body: body ? JSON.stringify(body) : null
+        body
     });
 }
 

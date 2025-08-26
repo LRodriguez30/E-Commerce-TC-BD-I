@@ -42,7 +42,7 @@ export default function index() {
 
 
       // RESPONSE OBJECT OBTAINED FROM MONGODB
-      const res = HANDLER.fetchDB(method, API_KEY, body);
+      const res = await HANDLER.fetchDB(method, API_KEY, body);
 
       // DATA PARSED FROM THE OBJECT
       const result = await res.json();
